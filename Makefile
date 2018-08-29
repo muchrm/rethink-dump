@@ -1,4 +1,5 @@
-dockerrun = docker run --rm -it -v $(pwd):/backup --name rethink-dump muchrm/rethinkdump
+p = pwd
+dockerrun = docker run --rm -v $($(p)):/backup --name rethink-dump muchrm/rethinkdump
 host = localhost:28015
 file = rdb_dump.tar.gz
 build:
@@ -8,4 +9,4 @@ release:
 backup:
 	$(dockerrun) rethinkdb-dump -c $(host) -f $(file)
 restore:
-	$(dockerrun) muchrm/rethinkdump rethinkdb-restore $(file) -c $(host)
+	$(dockerrun) rethinkdb-restore $(file) -c $(host)
